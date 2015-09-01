@@ -1,0 +1,32 @@
+extends ../layout
+block content
+	main
+		section
+			if data
+				if data.message
+					p #{data.message}
+				else
+					h1 #{data.evals.title}
+					form.ui.form(method="POST",action="/respuesta/create",name="evaluacion")
+						each item, index in data.evals.body
+							.inline.fields
+								p #{item.pregunta.titulo}
+								- var preguntas = item.pregunta.respuestas.split(',')
+								if item.pregunta.typo ==='multiple'
+									each pregunta, index2 in preguntas
+										.field
+											.ui.checkbox
+												input(type="checkbox",name="#{item.pregunta.titulo}",value="#{preguntas[index2]}")
+												label #{preguntas[index2]}
+								else
+									each pregunta, index2 in preguntas
+										.field
+											.ui.radio.checkbox
+												if index2 === 0
+													input(type="radio",name="#{item.pregunta.titulo}",value="#{preguntas[index2]}" ,checked)
+												else
+													input(type="radio",name="#{item.pregunta.titulo}",value="#{preguntas[index2]}")
+												label #{preguntas[index2]}
+						button.ui.button.green(type="submit") Enviar
+			else
+				p no se porque estas viendo esto :s

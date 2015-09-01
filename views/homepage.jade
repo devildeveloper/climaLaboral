@@ -1,0 +1,13 @@
+extends ./layout
+block content
+	main
+		form.login.ui.form(method="POST",action="/auth/login")
+			.field
+				label Username
+				input(type="text",name="name",placeholder="username")
+			.field
+				label Password
+				input(type="password",name="password",placeholder="clave")
+			button.ui.green.button.fluid(type="submit") iniciar sesion
+			if data && data.error
+				p #{data.error}

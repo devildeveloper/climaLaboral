@@ -1,0 +1,34 @@
+extends ../layout
+block content
+	main
+		include ../components/header
+		section(name="evaluaciones")
+			h1 Mis Evaluaciones
+			.ui.relaxed.divided.list
+				if req.session.user.evaluaciones
+					each evaluacion in req.session.user.evaluaciones
+						.item
+							i.large.wait.middle.aligned.icon
+							.content
+								a.header(href="/view/evaluacion/#{evaluacion.id}") #{evaluacion.title}
+								.description #{evaluacion.createdAt}		
+		section(name="crear evaluacion")
+			h1 Crear Evaluacion
+			form.ui.form(name="crearEvaluacion",method="POST",action="/evaluacion/create")
+				.field
+					label Nombre de la evaluacion
+					input(type="text",name="title",placeholder="Nombre de la evaluacion",required)
+				.field
+					label Gerencia
+					select(name="gerencia")
+						option(value="operaciones") Operaciones
+						option(value="contabilidad") Contabilidad
+				.field
+					label Contenido
+					textarea(name="body",placeholder="contenido",required)
+				button.ui.green.button(type="submit") Crear
+				if data 
+					if data.message
+						p #{data.message}
+					else if data.created
+						p registro creado con exito

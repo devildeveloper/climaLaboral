@@ -1,0 +1,7 @@
+header
+	.ui.pointing.menu
+		a.active.item Hola #{req.session.user.name}
+		.right.menu
+			a.item(href="/auth/logout")
+				i.sign.out.icon
+				| Salir
