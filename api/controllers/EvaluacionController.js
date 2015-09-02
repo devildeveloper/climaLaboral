@@ -18,7 +18,7 @@ module.exports = {
 						if(error){
 							res.negotiate(error);
 						}else{
-							res.ok({created:true,message:null},'user/home')
+							res.ok({created:true,message:null},'admin/home')
 						}
 					})
 	},
