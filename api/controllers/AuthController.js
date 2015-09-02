@@ -8,7 +8,6 @@
 module.exports = {
 	login:function(req,res){
 		User.findOne({name:req.param('name'),password:req.param('password')})
-			.populate('evaluaciones')
 			.exec(function(error,user){
 				if(error){
 					res.ok({error:error},'homepage')

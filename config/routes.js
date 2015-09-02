@@ -47,6 +47,10 @@ module.exports.routes = {
     controller:'UserController',
     action:'userHome'
   },
+  'get /my/evals':{
+    controller:'UserController',
+    action:'myEvals'
+  },
   'get /admin/home':{
     controller:'UserController',
     action:'adminHome'

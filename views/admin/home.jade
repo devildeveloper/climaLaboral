@@ -1,17 +1,18 @@
 extends ../layout
 block content
-	main
+	main(ng-app="climaLaboral")
 		include ../components/header
-		section(name="evaluaciones")
-			h1 Mis Evaluaciones
-			.ui.relaxed.divided.list
-				if req.session.user.evaluaciones
-					each evaluacion in req.session.user.evaluaciones
-						.item
-							i.large.wait.middle.aligned.icon
-							.content
-								a.header(href="/view/evaluacion/#{evaluacion.id}") #{evaluacion.title}
-								.description #{evaluacion.createdAt}		
+		section(name="evaluaciones",ng-controller="homeController")
+			
+
+					.content(ng-show="evals.length")
+						h1 Mis Evaluaciones
+						.ui.relaxed.divided.list
+							.item(ng-repeat="evaluacion in evals")
+								i.large.wait.middle.aligned.icon
+								.content
+									a.header(href="/view/evaluacion/{{evaluacion.id}}") {{evaluacion.title}}
+									.description {{evaluacion.createdAt}}
 		section(name="crear evaluacion")
 			h1 Crear Evaluacion
 			form.ui.form(name="crearEvaluacion",method="POST",action="/evaluacion/create")
@@ -32,3 +33,7 @@ block content
 						p #{data.message}
 					else if data.created
 						p registro creado con exito
+	script(src="/js/vendor/angular.min.js")
+	script(src="/js/controllers/resultController.js")
+	script(src="/js/controllers/homeController.js")
+	script(src="/js/app/index.js")
