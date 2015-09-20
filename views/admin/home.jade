@@ -1,39 +1,59 @@
 extends ../layout
 block content
-	main(ng-app="climaLaboral")
-		include ../components/header
-		section(name="evaluaciones",ng-controller="homeController")
-			
-
-					.content(ng-show="evals.length")
-						h1 Mis Evaluaciones
-						.ui.relaxed.divided.list
-							.item(ng-repeat="evaluacion in evals")
-								i.large.wait.middle.aligned.icon
-								.content
-									a.header(href="/view/evaluacion/{{evaluacion.id}}") {{evaluacion.title}}
-									.description {{evaluacion.createdAt}}
-		section(name="crear evaluacion")
-			h1 Crear Evaluacion
-			form.ui.form(name="crearEvaluacion",method="POST",action="/evaluacion/create")
-				.field
-					label Nombre de la evaluacion
-					input(type="text",name="title",placeholder="Nombre de la evaluacion",required)
-				.field
-					label Gerencia
-					select(name="gerencia")
-						option(value="operaciones") Operaciones
-						option(value="contabilidad") Contabilidad
-				.field
-					label Contenido
-					textarea(name="body",placeholder="contenido",required)
-				button.ui.green.button(type="submit") Crear
-				if data 
-					if data.message
-						p #{data.message}
-					else if data.created
-						p registro creado con exito
-	script(src="/js/vendor/angular.min.js")
-	script(src="/js/controllers/resultController.js")
-	script(src="/js/controllers/homeController.js")
-	script(src="/js/app/index.js")
+    main(ng-app="climaLaboral",ng-controller="homeController")
+        include ../components/header
+        section(name="evaluaciones")
+            .content(ng-show="evals.length")
+                h1 Mis Evaluaciones
+                .ui.relaxed.divided.list
+                    .item(ng-repeat="evaluacion in evals")
+                        i.large.wait.middle.aligned.icon
+                        .content
+                            a.header(href="/view/evaluacion/{{evaluacion.id}}") {{evaluacion.title}}
+                            .description {{evaluacion.createdAt}}
+        section.ui.grid(name="crear evaluacion")
+            .eight.wide.column
+                h3 Preguntas                        
+                .ui.form
+                    .ui.segment(ng-repeat="question in creator.questions")
+                        .field
+                            label Pregunta
+                            input(type="text",placeholder="titulo de la pregunta",ng-value="question.titulo")
+                        .field
+                            label Respuestas
+                            input(type="text",placeholder="Respuestas separadas por coma",ng-value="question.respuestas")
+                        button.circular.ui.icon.right.floated.red.button(type="button",ng-click="creator.destroyQuestion($index)")
+                            i.icon.close
+                button.ui.button.green(type="button",ng-click="creator.createEvaluation()") Imprimir
+            .eight.wide.column
+                h3 Crear Evaluacion
+                //form.ui.form(name="crearEvaluacion",method="POST",action="/evaluacion/create")
+                form.ui.form(ng-submit="creator.addQuestion(model)")
+                    .field
+                        label Nombre de la evaluacion
+                        input(type="text",name="title",placeholder="Nombre de la evaluacion",required,ng-model="evalTitle")
+                    .field
+                        label Gerencia
+                        select(name="gerencia",ng-model="gerencia")
+                            option(value="operaciones") Operaciones
+                            option(value="contabilidad") Contabilidad                    
+                    h3 Preguntas
+                    .field
+                        label Titulo
+                        input(type="text",placeholder="titulo de la pregunta",ng-model="model.titulo",required)
+                    .field
+                        label Respuestas
+                        textarea(placeholder="respuestas separadas por coma",ng-model="model.respuestas",required)
+                    .field
+                        button.ui.button.green(type="submit") Agregar Campos
+                        button.ui.button.red(type="reset") Cancelar
+                //button.ui.green.button(type="submit") Crear
+                if data
+                    if data.message
+                        p #{data.message}
+                    else if data.created
+                        p registro creado con exito
+    script(src="/js/vendor/angular.min.js")
+    script(src="/js/controllers/resultController.js")
+    script(src="/js/controllers/homeController.js")
+    script(src="/js/app/index.js")

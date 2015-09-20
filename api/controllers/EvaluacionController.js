@@ -11,14 +11,15 @@ module.exports = {
 						{
 							title:req.param('title'),
 							gerencia:req.param('gerencia'),
-							body:YAML.parse(req.param('body')),
+							body:req.param('body'),
 							owner:req.session.user.id
 						})
 					.exec(function(error,created){
 						if(error){
 							res.negotiate(error);
 						}else{
-							res.ok({created:true,message:null},'admin/home')
+							res.json({created:created})
+							//res.ok({created:true,message:null},'admin/home')
 						}
 					})
 	},

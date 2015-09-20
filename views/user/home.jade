@@ -4,7 +4,7 @@ block content
 		include ../components/header
 		section(name="evaluaciones")
 			.ui.relaxed.divided.list
-				if req.session.user.evaluaciones.length
+				if req.session.user.evaluaciones && req.session.user.evaluaciones.length
 					h1 Mis Evaluaciones
 					each evaluacion in req.session.user.evaluaciones
 						.item

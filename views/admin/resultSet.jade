@@ -4,21 +4,21 @@ block content
 		section(ng-controller="resultController")
 			header
 				h1 {{ evaluacion.result.title }}
-				p total de preguntas : {{evaluacion.result.body.length}}
+				p total de preguntas : {{evaluacion.result.respuestas.length}}
 			.ui.list
 				.item(ng-repeat="item in evaluacion.result.body")
 					i.checkmark.icon.vtop
 					.content
-						.header {{item.pregunta.titulo}}
+						.header {{item.titulo}}
 						.description
 							span.ui.green.ribbon.label respuestas:
 						.list
-							.item(ng-repeat="respuesta in item.pregunta.respuestas.split(',')")
+							.item(ng-repeat="respuesta in item.respuestas.split(',')")
 								i.check.circle.icon
 								.content
 									.header 
 										span {{respuesta}}
-										span  total:  {{countResult({question:respuesta,title:item.pregunta.titulo})}} | {{ countResult({question:respuesta,title:item.pregunta.titulo }) * 100 / evaluacion.result.body.length }} %
+										span  total:  {{countResult({question:respuesta,title:item.titulo})}} | {{ countResult({question:respuesta,title:item.titulo }) * 100 / evaluacion.result.respuestas.length }} %
 
 
 	script(src="/js/vendor/angular.min.js")
