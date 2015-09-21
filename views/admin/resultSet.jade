@@ -19,9 +19,3 @@ block content
 									.header 
 										span {{respuesta}}
 										span  total:  {{countResult({question:respuesta,title:item.titulo})}} | {{ countResult({question:respuesta,title:item.titulo }) * 100 / evaluacion.result.respuestas.length }} %
-
-
-	script(src="/js/vendor/angular.min.js")
-	script(src="/js/controllers/resultController.js")
-	script(src="/js/controllers/homeController.js")
-	script(src="/js/app/index.js")

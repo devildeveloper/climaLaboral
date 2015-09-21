@@ -23,7 +23,7 @@ function homeController($scope,$http){
 												gerencia: $scope.gerencia,
 												body: $scope.creator.questions
 			}).then(function(response){
-				console.log(response)
+				window.location.href=window.location.href
 			})
 		}
 	}

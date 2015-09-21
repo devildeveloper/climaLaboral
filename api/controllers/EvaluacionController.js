@@ -27,14 +27,27 @@ module.exports = {
 		Evaluacion.findOne({id:req.param('id')})
 					.exec(function(error,eval){
 						if(error){
+							res.json({error:error,evals:null,message:null,status:500});
+						}else if(eval){
+							//console.log(eval)
+							res.json({error:error,evals:eval,message:null,status:200});
+						}else{
+							res.json({error:error,evals:null,message:'no found',status:404});
+						}
+					})
+	},
+	render:function(req,res){
+		Evaluacion.findOne({id:req.param('id')})
+					.exec(function(error,eval){
+						if(error){
 							res.negotiate(error);
 						}else if(eval){
 							//console.log(eval)
-							res.ok({evals:eval,message:null},'evaluacion/home');
+							res.ok({evals:eval},'evaluacion/home');
 						}else{
-							res.ok({evals:null,message:'no found'},'evaluacion/home');
+							res.notFound();
 						}
-					})
+					})		
 	},
 	getResponses:function(req,res){
 		Evaluacion.findOne({id:req.param('evaluacionId')})

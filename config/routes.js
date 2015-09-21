@@ -59,6 +59,10 @@ module.exports.routes = {
     controller:'EvaluacionController',
     action:'find'
   },
+  'get /evaluacion/render/:id':{
+    controller:'EvaluacionController',
+    action:'render'
+  },  
   'get /results/from/evaluacion/:evaluacionId':{
     controller:'EvaluacionController',
     action:'getResponses'

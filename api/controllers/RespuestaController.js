@@ -15,9 +15,9 @@ module.exports = {
 		Respuesta.create(data)
 				.exec(function(error,created){
 					if(error){
-						res.negotiate(error)
+						res.json({error:error,success:false})
 					}else{
-						res.ok({message:'evaluacion terminada'})
+						res.json({error:error,success:true});
 					}
 				})
 	},
